@@ -7,9 +7,9 @@ class Dashboard extends Component {
 
     render(){
         return (
-            <div className="ui visible inverted">
+            <div className="ui visible">
                 <HeaderDashboard/>
-                <div className="ui bottom inverted attached segment pushable" style={{minHeight: '100vh', display: 'flex', flexFlow: 'column nowrap'}}>
+                <div className="ui bottom attached segment pushable" style={{minHeight: '100vh', display: 'flex', flexFlow: 'column nowrap'}}>
                     <QueueIncidents/>
                     <div className="pusher">
                         <div className="ui basic segment" style={{minHeight: '100vh', display: 'flex', flexFlow: 'column nowrap'}}>
