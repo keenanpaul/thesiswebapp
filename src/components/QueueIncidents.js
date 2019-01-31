@@ -1,23 +1,33 @@
 import React, {Component} from 'react'
-import MapLoad from './MapLoad';
 import EmergencyDetails from './EmergencyDetails';
+import {Button, Header } from 'semantic-ui-react'
 
 class QueueIncidents extends Component {
     render(){
         return (
                 <div className="ui visible inverted left vertical sidebar menu">
-                    <a className="item">
+                    <div>
+                        <Header>
+                            <Button primary>
+                                Add Incidents
+                            </Button>
+                            <Button primary>
+                                Something
+                            </Button>
+                        </Header>
+                    </div>
+                    <div className='item'>
                         <EmergencyDetails name="Keenan"/>
-                    </a>
-                    <a className="item">
+                    </div>
+                    <div className='item'>
                         <EmergencyDetails name="Lester"/>
-                    </a>
-                    <a className="item">
+                    </div>
+                    <div className='item'>
                         <EmergencyDetails name="Mark"/>
-                    </a>
-                    <a className="item">
+                    </div>
+                    <div className='item'>
                         <EmergencyDetails name="Patrick"/>
-                    </a>
+                    </div>
                 </div>
         );
     }
