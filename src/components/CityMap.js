@@ -11,11 +11,17 @@ export class MapContainer extends Component {
     return (
       <Map
         google={this.props.google}
-        zoom={16}
+        zoom={15}
         style={mapStyles}
+        //Mandaue City coords
+        // lat: 10.333333,
+        // lng: 123.933334
+        
+        //MCPO coords
+        // 10.324646, 123.942197
         initialCenter={{
-         lat: 10.333333,
-         lng: 123.933334
+         lat: 10.324646,
+         lng: 123.942197
         }}
       />
     );

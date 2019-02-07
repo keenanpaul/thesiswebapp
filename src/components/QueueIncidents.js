@@ -27,19 +27,20 @@ class QueueIncidents extends Component {
                             </Button>
                         </Header>
                     </div>
-                    <div className='item'>
-                        <EmergencyDetails name="Keenan"/>
-                    </div>
-                    <div className='item'>
-                        <EmergencyDetails name="Lester"/>
-                    </div>
-                    <div className='item'>
-                        <EmergencyDetails name="Mark"/>
-                    </div>
-                    <div className='item'>
-                        <EmergencyDetails name="Patrick"/>
-                    </div>
-                
+                    
+                        <div className='item'>
+                            <EmergencyDetails name="Keenan"/>
+                        </div>
+                        <div className='item'>
+                            <EmergencyDetails name="Lester"/>
+                        </div>
+                        <div className='item'>
+                            <EmergencyDetails name="Mark"/>
+                        </div>
+                        <div className='item'>
+                            <EmergencyDetails name="Patrick"/>
+                        </div>
+                   
                     <Modal size={size} open={open} onClose={this.close}>
                     <Modal.Header>New Emergency</Modal.Header>
                         <Modal.Content>

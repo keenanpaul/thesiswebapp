@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Header, Segment, Button } from 'semantic-ui-react'
+import { Header, Segment, Button, Image } from 'semantic-ui-react'
 import fire from '../config/Fire';
 
 
@@ -21,6 +21,7 @@ class HeaderDashboard extends Component{
                 <Header as='h2' floated='right'>
                 <Button onClick={this.logout} >Logout</Button>
                 </Header>
+                <Image src='' size='mini' circular floated='right'/>     
             </Segment>
         );
     }
@@ -28,3 +29,5 @@ class HeaderDashboard extends Component{
 }
 
 export default HeaderDashboard;
+
+
