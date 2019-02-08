@@ -1,62 +1,119 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
 import EmergencyDetails from './EmergencyDetails';
 import { Button, Modal, Header, Form } from 'semantic-ui-react';
+import fire from '../config/Fire';
+import _ from 'lodash';
+import { app } from 'firebase';
 
 class QueueIncidents extends Component {
 
     constructor(props){
         super(props);
-        this.state = {open: false}
+        this.state = {
+            open: false,
+            incidentType: '',
+            incidentLocation: '',
+            isResponded: null,
+            incidentsList : [{
+                incidentType: '',
+                incidentLocation: '',
+                isResponded: ''
+            }]
+        }
+
+        let app = fire.database().ref('/incidents');
+        app.on('value', snapshot => {
+            this.getData(snapshot.val());
+        })
     }
 
     show = size => () => this.setState({ size, open: true })
     close = () => this.setState({ open: false })
 
+    inputIncidentTypeHandler = (e) => {
+        this.setState({incidentType: e.target.value});
+    }
+
+    inputIncidentLocationHandler = (e) => {
+        this.setState({incidentLocation: e.target.value});
+    }
+
+    submitIncidentHandler = (e) => {
+        e.preventDefault();
+        let firebaseRef = fire.database().ref('/incidents');
+        firebaseRef.push({
+            incidentType: this.state.incidentType,
+            incidentLocation: this.state.incidentLocation,
+            responded: false
+        });
+        this.setState({
+            incidentType: '',
+            incidentLocation: '',
+            responded: null
+        });
+    } 
+
+    getData = (values) => {
+        let incidentValues = values;
+        let incidentsList = _(incidentValues)
+                            .keys()
+                            .map(incidentKey => {
+                                let cloned = _.clone(incidentValues[incidentKey]);
+                                cloned.key = incidentKey;
+                                return cloned;
+                            })
+                            .value();
+        this.setState({incidentsList: incidentsList});
+
+    }
+
     render(){
         const { open, size } = this.state
-
+        let incidentNodes = this.state.incidentsList.map((incidents, key) => {
+            return (
+                <div className='item' key={key}>
+                    <EmergencyDetails 
+                        incidentType = {incidents.incidentType} 
+                        incidentLocation = {incidents.incidentLocation} 
+                    />
+                </div>
+            );
+            
+        });
+        
         return (
+            
                 <div className="ui visible left vertical sidebar menu">
                     <div>
                         <Header>
                             <Button primary onClick={this.show('tiny')}>
                                 Add Incident
                             </Button>
-                            <Button primary>
-                                Something
-                            </Button>
                         </Header>
                     </div>
-                    
-                        <div className='item'>
-                            <EmergencyDetails name="Keenan"/>
-                        </div>
-                        <div className='item'>
-                            <EmergencyDetails name="Lester"/>
-                        </div>
-                        <div className='item'>
-                            <EmergencyDetails name="Mark"/>
-                        </div>
-                        <div className='item'>
-                            <EmergencyDetails name="Patrick"/>
-                        </div>
-                   
+                        {incidentNodes}
                     <Modal size={size} open={open} onClose={this.close}>
                     <Modal.Header>New Emergency</Modal.Header>
                         <Modal.Content>
                             <Form>
                                 <Form.Field>
                                     <label>Type of Incident</label>
-                                    <input name='incidentType'/>
+                                    <input 
+                                        name='incidentType' 
+                                        onChange={this.inputIncidentTypeHandler}
+                                    />
                                 </Form.Field>
                                 <Form.Field>
                                     <label>Incident Location</label>
-                                    <input name='incidentLocation'/>
+                                    <input 
+                                        name='incidentLocation'
+                                        onChange={this.inputIncidentLocationHandler}
+                                    />
                                 </Form.Field>
                             </Form>
                             </Modal.Content>
                             <Modal.Actions>
-                                <Button basic color='green'>
+                                <Button basic color='green' onClick={this.submitIncidentHandler}>
                                     Submit
                                 </Button>
                             </Modal.Actions>

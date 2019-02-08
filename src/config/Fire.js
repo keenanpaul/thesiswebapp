@@ -11,18 +11,18 @@ const config = {
 
 };
 const fire = firebase.initializeApp(config);
-const firebaseRef = firebase.database().ref();
-const emergency = firebaseRef.child('emergencies');
+// const firebaseRef = firebase.database().ref();
+// const emergency = firebaseRef.child('emergencies');
 
-emergency.on('child_added', (snapshot) => {
-  console.log('child_added', snapshot.key, snapshot.val());
-});
+// emergency.on('child_added', (snapshot) => {
+//   console.log('child_added', snapshot.key, snapshot.val());
+// });
 
-const addEmergency = emergency.push({
-  name: 'Keenan Mendiola',
-  location: 'Mandaue City',
-  type: 'Death'
-});
+// const addEmergency = emergency.push({
+//   name: 'Keenan Mendiola',
+//   location: 'Mandaue City',
+//   type: 'Death'
+// });
 
 
 export default fire;

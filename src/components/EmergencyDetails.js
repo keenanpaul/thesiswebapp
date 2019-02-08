@@ -8,7 +8,10 @@ class EmergencyDetails extends Component{
         this.state = {open: false}
     }
 
-    show = size => () => this.setState({ size, open: true })
+    show = size => () => {
+        this.setState({ size, open: true })
+        console.log('Modal pressed');
+    }
     close = () => this.setState({ open: false })
 
     render() {
@@ -19,7 +22,8 @@ class EmergencyDetails extends Component{
                 <Card>
                 <Card.Content>
                 
-                    <Card.Header>{this.props.name}<Icon name='envelope' floated='right'/></Card.Header>
+                    <Card.Header>{this.props.name}<Icon name='envelope' floated='right'/>
+                    </Card.Header>
                     <Card.Description>
                     Emergency Report
                     </Card.Description>
@@ -37,9 +41,8 @@ class EmergencyDetails extends Component{
                 <Modal.Header>New Emergency</Modal.Header>
                     <Modal.Content>
                             <p>Reported by: {this.props.name}</p>
-                            <p>Account ID:</p>
-                            <p>Time Reported:</p>
-                            <p>Location of Incident:</p>
+                            <p>Type of Incident: {this.props.incidentType}</p>
+                            <p>Location of Incident: {this.props.incidentLocation}</p>
                             <p>Photo of Incident:</p>
                         </Modal.Content>
                         <Modal.Actions>
@@ -57,4 +60,11 @@ class EmergencyDetails extends Component{
   
     }
 
+EmergencyDetails.defaultProps = {
+    name: 'Command Center Personnel',
+    accountID : 12345,
+    timeReported: new Date(),
+    incidentType: 'Police Emergency',
+    incidentLocation: 'Mandaue City'
+}
 export default EmergencyDetails;
